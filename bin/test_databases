@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+echo "Testing Pay against SQLite3"
+rails test
+
+echo "Testing Pay against PostgreSQL"
+DATABASE_URL=postgres://127.0.0.1/pay_test rails test
+
+echo "Testing Pay against MySQL"
+DATABASE_URL=mysql2://root:@127.0.0.1/pay_test rails test

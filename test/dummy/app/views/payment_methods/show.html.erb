@@ -1,0 +1,27 @@
+<h1>Payment Method</h1>
+
+<div class="mt-4">
+<h6 class="mb-1">Processor</h6>
+<%= current_user.payment_processor.processor&.titleize || "None"%>
+
+<div class="mt-4">
+  <h6 class="mb-1">Payment Method Details</h6>
+  <% case @payment_method&.type %>
+  <% when "paypal", "PayPal" %>
+    <div><%= @payment_method.brand.titleize %> (<%= @payment_method.email %>)</div>
+  <% when "card" %>
+    <div><%= @payment_method.brand.titleize %> ending in <%= @payment_method.last4 %></div>
+    <div>Expires <%= @payment_method.exp_month %> / <%= @payment_method.exp_year %></div>
+  <% when nil %>
+    No card on file.
+  <% else %>
+    <div><%= @payment_method.data %></div>
+  <% end %>
+</div>
+
+<div class="mt-4">
+  <h6 class="mb-1">Update Payment Method</h6>
+  <%= link_to "Stripe", edit_stripe_payment_method_path, class: "d-block" %>
+  <%= link_to "Braintree", edit_braintree_payment_method_path, class: "d-block" %>
+  <%= link_to "Paddle", edit_paddle_payment_method_path, class: "d-block" %>
+</diV>
